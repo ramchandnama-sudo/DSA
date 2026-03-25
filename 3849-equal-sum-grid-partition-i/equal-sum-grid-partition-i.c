@@ -1,0 +1,40 @@
+#include <stdbool.h>
+
+bool canPartitionGrid(int** grid, int gridSize, int* gridColSize) {
+    long totalSum = 0;
+    int m = gridSize;
+    int n = gridColSize[0];
+
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            totalSum += grid[i][j];
+        }
+    }
+
+    if (totalSum % 2 != 0) {
+        return false;
+    }
+
+    long target = totalSum / 2;
+    long rowSum = 0;
+    for (int i = 0; i < m - 1; i++) {
+        for (int j = 0; j < n; j++) {
+            rowSum += grid[i][j];
+        }
+        if (rowSum == target) {
+            return true;
+        }
+    }
+
+    long colSum = 0;
+    for (int j = 0; j < n - 1; j++) {
+        for (int i = 0; i < m; i++) {
+            colSum += grid[i][j];
+        }
+        if (colSum == target) {
+            return true;
+        }
+    }
+
+    return false;
+}
